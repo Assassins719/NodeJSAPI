@@ -1,0 +1,615 @@
+<html>
+
+<head>
+    <title>Cloud API doc</title>
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <script src="js/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/config.js"></script>
+    <script src="js/lambda-api.js"></script>
+    <script src="js/datasets.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <nav id="spy">
+                <ul class="sidebar-nav nav">
+                    <li class="sidebar-brand">
+                        <a href="javascript:void(0)">
+                            <span class="fa fa-home solo">Cloud API</span>
+                        </a>
+                    </li>
+
+                    <li class="hidden">
+                        <a href="javascript:void(0)" data-scroll id="Authentication">
+                            <span class="fa fa-anchor solo">Authentication</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:void(0)" data-scroll id="Accounts">
+                            <span class="fa fa-anchor solo">Accounts</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" data-scroll id="Datasets">
+                            <span class="fa fa-anchor solo">Datasets</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="javascript:void(0)" data-scroll id="Chatapi">
+                            <span class="fa fa-anchor solo">Chat APIs</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="javascript:void(0)" data-scroll id="Messages">
+                            <span class="fa fa-anchor solo">Messages</span>
+                        </a>
+                    </li>
+                    <li class="hidden">
+                        <a href="javascript:void(0)" data-scroll id="Lambda">
+                            <span class="fa fa-anchor solo">Lambda function</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Page content -->
+        <div id="page-content-wrapper">
+            <div class="page-content" data-spy="scroll" data-target="#spy">
+                <div class="row Accounts">
+                    <pre>
+        
+    <h1>Account</h1>
+                                        <div>
+
+    <h4 class="run" data-url="/account/login/8uk5jl0QPPNYvHvKgnjXZqCRGZY2">/account/login/:id</h4>  //Get user account profile and all qeustions for first tab
+    Method: <span class="method">GET</span>
+    Response:
+        {
+            success:        Boolean,
+            message:        String,             // Login Failed | Login Success
+            data:  {                         // User Profile
+                    first_name:     String, 
+                    last_name:      String,
+                    email:          String,
+                    password:       String
+                    nick_name:      String,
+                    gender:         Boolean,        // 1 : Male    0 : Female
+                    interest:       String          
+                }
+        }
+        <div class="result"></div>    
+    
+                </div>
+
+        <div>
+    <h4 class="run" data-url="/account/update/abcdefghijk">/account/update/:id</h4>    //Create account or update account profile
+        Method: <span class="method">POST</span>
+        Data:
+            {
+                first_name:     String, 
+                last_name:      String,
+                email:          String,
+                password:       String
+                nick_name:      String,
+                gender:         Boolean,        // 1 : Male    0 : Female
+                interest:       String
+            }
+        Response:
+            {
+                success: Boolean,               // 1 ：success   0 : fail  
+                message: String                 // Profile Successfully Updated
+            }
+            <textarea class="param form-control" spellcheck="false">
+                    {
+                     "first_name": "John",
+                     "last_name": "Hello",
+                     "email": "aa@aa.com",
+                     "password": "123456",
+                     "nick_name": "Nickname",
+                     "gender": 0,
+                     "interest" : "Interest"
+                    }
+                 </textarea>
+                 <div class="result"></div>
+                </div>
+
+                </pre>
+                </div>
+
+
+                <div class="row Datasets">
+                    <pre>
+                        
+    <h1>Datasets</h1>
+    <div>
+    <h4 class="run">/question/add/</h4>                //Add new question(user ID)
+        Method: <span class="method">POST</span>
+        Data:
+            {
+                question: String,                        // Question
+                userId:String,                           // asking user Id (Current asking user's ID)
+            }
+        Response:
+            {
+                success:Boolean,                        // 1 : Success, 0 : Fail
+                questionId: String,                     // Question ID (UserID + Timestamp)
+                message:String
+            }
+    <textarea class="param form-control" spellcheck="false">
+        {
+        "question": "What is your question?",
+        "userId":"abcdefghijklmn"
+        }
+    </textarea>
+    <div class="result"></div>
+</div>
+
+<div>
+    <h4 class="run" data-url="/question/get_by_id/abcdefghijk1510838542481">/question/get_by_id/:id</h4>                //Get question with the questionId
+        Method: <span class="method">POST</span>
+        Response:
+            {
+                success:Boolean,                      // 1 : Success, 0 : Fail
+                question: String,                     // Question
+                message:String
+            }
+
+    <div class="result"></div>
+</div>
+
+    <div>
+    <h4 class="run">/question/get/mine</h4>                //Get questions that user posted
+        Method: <span class="method">POST</span>
+        Data:
+            {
+                userId:String
+            }
+        Response:
+            {
+                success:Boolean,                        // 1 : Success, 0 : Fail
+                data:{
+                    JSON for user posted questions
+                }
+            }
+    <textarea class="param form-control" spellcheck="false">
+        {
+            "userId":"abcdefghijklmn"
+        }
+    </textarea>
+    <div class="result"></div>
+</div>
+
+<div>
+    <h4 class="run">/question/get/others</h4>                //Get questions that user not posted and not answered
+        Method: <span class="method">POST</span>
+        Data:
+            {
+                userId:String
+            }
+        Response:
+            {
+                success:Boolean,                        // 1 : Success, 0 : Fail
+                data:{
+                    JSON for user posted questions
+                }
+            }
+    <textarea class="param form-control" spellcheck="false">
+        {
+             "userId":"abcdefghijklmn"
+        }
+    </textarea>
+    <div class="result"></div>
+</div>
+
+<div>
+    <h4 class="run">/answer/add</h4>                  // Answer the qeustion.
+        Method: <span class="method">POST</span>
+        Data:
+            {
+                answer: String,                         
+                questionId:String,                      // Question Id from add question
+                answeredUserId: String,                 // Answered UserID(Currently answering user ID)
+                askedUserId:String                      //Get from question list(each question has it's questionId and userId)
+            }
+        Response:
+            {
+                success:Boolean
+            }
+           
+    <textarea class="param form-control" spellcheck="false">
+        {
+             "answer": "This is my answer",
+             "questionId":"abcdefghijklmn1505937518308",  
+         "answeredUserId": "abcdefghijklmn",
+         "askedUserId":"asdfqwerjhgi"   
+        }
+    </textarea>
+    <div class="result"></div>
+</div>
+<div>
+    <h4 class="run">/answer/get_by_question</h4>                    // Get Answers for selected question.
+        Method: <span class="method">POST</span>
+        Data:
+            {
+                questionId:String,                      // Question Id from add question
+            }
+        Response:
+            {
+                success:Boolean
+            }
+           
+    <textarea class="param form-control" spellcheck="false">
+        {
+          
+             "questionId":"abcdefghijklmn1505937518308"
+     
+        }
+    </textarea>
+    <div class="result"></div>
+</div>
+<div>
+    <h4 class="run">/answer/get_mine</h4>                    // Get Answers that I answered.
+        Method: <span class="method">POST</span>
+        Data:
+            {
+                userId:String,                              // Current User Id
+            }
+        Response:
+            {
+                success:Boolean
+            }
+           
+    <textarea class="param form-control" spellcheck="false">
+        {
+          
+             "userId":"abcdefghijklmn1505937518308"
+     
+        }
+    </textarea>
+    <div class="result"></div>
+    </div>
+    <div>
+    <h4 class="run">/answer/get_other</h4>                    // Get Answers for my questions
+        Method: <span class="method">POST</span>
+        Data:
+            {
+                userId:String,                                // Current User Id
+            }
+        Response:
+            {
+                success:Boolean
+            }
+            
+    <textarea class="param form-control" spellcheck="false">
+        {
+            
+                "userId":"abcdefghijklmn1505937518308"
+        
+        }
+    </textarea>
+    <div class="result"></div>
+    </div>
+
+<div>
+    <h4 class="run">/rate/add</h4>                       // Rate selected answer
+        Method: <span class="method">POST</span>
+        Data:
+            {
+                rate: Number,                           //Rate Number
+                answerId: String                        // Answer ID
+            }
+        Response:
+            {
+                success:Boolean
+            }
+    <textarea class="param form-control" spellcheck="false">
+        {
+       "rate"  : 5,
+      "answerId" : "abcdefghijklmn15059375183081505937787365"
+        }
+    </textarea>
+    <div class="result"></div>
+</div>
+    <div>
+    <h4 class="run">/report/add</h4>                       // Report selected answer
+        Method: <span class="method">POST</span>
+        Data:
+            {
+                reportReason: String,                        
+                answerId: String                            // ID gets from question add or answer add
+            }
+            Response: {                                    
+                success: Boolean
+            }
+        <textarea class="param form-control" spellcheck="false">
+       {
+       "reportReason": "Spam question or answer",
+           "answerId": "abcdefghijklmn15059375183081505937787365"
+        }
+    </textarea>
+    <div class="result"></div>
+    </div>
+
+                    </pre>
+                </div>
+                <div class="row Chatapi">
+                    <pre>
+        
+    <h1>Chat APIs</h1>
+                                        <div>
+
+    <h4 class="run" data-url="/chat/friends/1234567890">/chat/friends/:id</h4>           //Get friends that can chat each other(add userID)
+    Method: <span class="method">POST</span>
+    Response:
+        {
+            success:        Boolean,
+            message:        String,             // Get Friends Failed | Success
+            data:  {              
+               
+            }
+        }
+        <div class="result"></div>    
+        </div>
+
+        <div>
+            
+    <h4 class="run">Connect User</h4>           //When user run this app, have to register user id to socket server
+    Method: <span class="method">connectUser</span> //Server code here: clientSocket.on("connectUser", function (userId) 
+    Data:
+    {
+        userId: String,                             //CurrentUserId
+    }    
+    Response:
+        {
+            io.emit("userConnectUpdate", userList);
+        }
+
+        </div>
+        <div>
+            
+    <h4 class="run">User disconnect</h4>      //Send socket when user disconnect chatting
+    Method: <span class="method">disconnect</span> //Server code here:  clientSocket.on('disconnect', function () {
+    Data:
+    {
+        //don't send any data to server
+    }
+    
+    Response:
+        {
+            //This code works when someone disconnect from chatting return current userList
+            io.emit("userConnectUpdate", userList);
+        }
+        </div>
+        <div>
+            
+    <h4 class="run">User Exit</h4>      //Send socket when user exist app   *But I think it is not neccessary anyway not sure yet.
+    Method: <span class="method">exitUser</span> //Server code here:  clientSocket.on("exitUser", function (clientNickname) {
+    Data:
+    {
+        userId:String       //Exiting user id
+    }
+    
+    Response:
+        {
+            //This code works when someone exit app, send notification to all users
+            io.emit("userExitUpdate", userId);
+        }
+        </div>
+        <div>
+            
+    <h4 class="run">Chatting with friends</h4>      //Send and Recieve new messages each other
+    Method: <span class="method">chatMessage</span> //Server code here:  clientSocket.on('chatMessage', function (fromUserId, toUserId, message)
+    Data:
+    {
+        userId: String,                             //CurrentUserId
+        friendId: String                            //Friend's UserId
+        message: String
+        
+    }
+    
+    Response:
+        {
+            //This code works when someone send message to you
+            io.to(userList[toUserId].socketId).emit('newChatMessage', { message: message, from: fromUserId });
+        }
+        </div>
+        <div>
+            
+    <h4 class="run">Start Typing</h4>      //Send and Recieve typing states each other
+    Method: <span class="method">startType</span> //Server code here:  clientSocket.on("startType", function (fromUserId, toUserId) {
+    Data:
+    {
+        userId: String,                             //CurrentUserId
+        friendId: String                            //Friend's UserId        
+    }
+    
+    Response:
+        {
+            //This code works when A start typing to B, B have to listen it.
+            io.to(userList[toUserId].socketId).emit("userTypingUpdate", fromUserId, true);
+        }
+        </div>
+        <div>
+            
+    <h4 class="run">Stop Typing</h4>      //Send and Recieve typing states each other
+    Method: <span class="method">stopType</span> //Server code here:  clientSocket.on('chatMessage', function (fromUserId, toUserId, message)
+    Data:
+    {
+        userId: String,                             //CurrentUserId
+        friendId: String                            //Friend's UserId
+        
+    }
+    
+    Response:
+        {
+            //This code works when A stop typing to B, B have to listen it.
+            io.to(userList[toUserId].socketId).emit("userTypingUpdate", fromUserId, false);
+        }
+        </div>
+    </pre>
+                </div>
+                <div class="row Messages">
+                    <pre>
+        
+    <h1>Chat History APIs</h1>
+    <div>
+        <h4 class="run">/history/get_by_range/</h4>                //Add new question(user ID)
+            Method: <span class="method">POST</span>
+            Data:
+                {
+                    userId :    String,                             //Current UserID
+                    friendId :  String,                             //Friends UserID
+                    timeFrom:   Milliseconds,                       //Time to get message from(convert to millisecond)
+                    limit:      Int                                 //Message Count(convert to millisecond)
+                }
+            Response:
+                {
+                    success:Boolean,                                // 1 : Success, 0 : Fail
+                    messages: []                                   // Question ID (UserID + Timestamp)
+                }
+        <textarea class="param form-control" spellcheck="false">
+            {
+                "userId": "tMQk6lUEXdZwheEGqrFMEpEclHt1",
+                "friendId":"HdCn6MKUZlNrz5l5xDY9rdz4NbM2",
+                "timeFrom":1511255226568,
+                "limit":10
+            }
+        </textarea>
+        <div class="result"></div>
+    </div>
+    <div>
+        <h4 class="run">/history/get_all/</h4>                //Add new question(user ID)
+            Method: <span class="method">POST</span>
+            Data:
+                {
+                    userId :    String,                             //Current UserID
+                    friendId :  String                              //Friends UserID
+                }
+            Response:
+                {
+                    success:Boolean,                                // 1 : Success, 0 : Fail
+                    messages: [],                                   // Question ID (UserID + Timestamp)
+                }
+        <textarea class="param form-control" spellcheck="false">
+            {
+                "userId": "tMQk6lUEXdZwheEGqrFMEpEclHt1",
+                "friendId":"HdCn6MKUZlNrz5l5xDY9rdz4NbM2"
+            }
+        </textarea>
+        <div class="result"></div>
+    </div>
+<!--
+        <div>
+            
+    <h4 class="run">Connect User</h4>           //When user run this app, have to register user id to socket server
+    Method: <span class="method">connectUser</span> //Server code here: clientSocket.on("connectUser", function (userId) 
+    Data:
+    {
+        userId: String,                             //CurrentUserId
+    }    
+    Response:
+        {
+            io.emit("userConnectUpdate", userList);
+        }
+
+        </div>
+        <div>
+            
+    <h4 class="run">User disconnect</h4>      //Send socket when user disconnect chatting
+    Method: <span class="method">disconnect</span> //Server code here:  clientSocket.on('disconnect', function () {
+    Data:
+    {
+        //don't send any data to server
+    }
+    
+    Response:
+        {
+            //This code works when someone disconnect from chatting return current userList
+            io.emit("userConnectUpdate", userList);
+        }
+        </div>
+        <div>
+            
+    <h4 class="run">User Exit</h4>      //Send socket when user exist app   *But I think it is not neccessary anyway not sure yet.
+    Method: <span class="method">exitUser</span> //Server code here:  clientSocket.on("exitUser", function (clientNickname) {
+    Data:
+    {
+        userId:String       //Exiting user id
+    }
+    
+    Response:
+        {
+            //This code works when someone exit app, send notification to all users
+            io.emit("userExitUpdate", userId);
+        }
+        </div>
+        <div>
+            
+    <h4 class="run">Chatting with friends</h4>      //Send and Recieve new messages each other
+    Method: <span class="method">chatMessage</span> //Server code here:  clientSocket.on('chatMessage', function (fromUserId, toUserId, message)
+    Data:
+    {
+        userId: String,                             //CurrentUserId
+        friendId: String                            //Friend's UserId
+        message: String
+        
+    }
+    
+    Response:
+        {
+            //This code works when someone send message to you
+            io.to(userList[toUserId].socketId).emit('newChatMessage', { message: message, from: fromUserId });
+        }
+        </div>
+        <div>
+            
+    <h4 class="run">Start Typing</h4>      //Send and Recieve typing states each other
+    Method: <span class="method">startType</span> //Server code here:  clientSocket.on("startType", function (fromUserId, toUserId) {
+    Data:
+    {
+        userId: String,                             //CurrentUserId
+        friendId: String                            //Friend's UserId        
+    }
+    
+    Response:
+        {
+            //This code works when A start typing to B, B have to listen it.
+            io.to(userList[toUserId].socketId).emit("userTypingUpdate", fromUserId, true);
+        }
+        </div>
+        <div>
+            
+    <h4 class="run">Stop Typing</h4>      //Send and Recieve typing states each other
+    Method: <span class="method">stopType</span> //Server code here:  clientSocket.on('chatMessage', function (fromUserId, toUserId, message)
+    Data:
+    {
+        userId: String,                             //CurrentUserId
+        friendId: String                            //Friend's UserId
+        
+    }
+    
+    Response:
+        {
+            //This code works when A stop typing to B, B have to listen it.
+            io.to(userList[toUserId].socketId).emit("userTypingUpdate", fromUserId, false);
+        }
+        </div>
+    -->
+    </pre>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>

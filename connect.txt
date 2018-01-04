@@ -1,0 +1,2 @@
+ssh -i "kariz-aws.pem" ec2-user@ec2-34-224-165-206.compute-1.amazonaws.com
+34.224.165.206
